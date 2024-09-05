@@ -12,8 +12,6 @@ spring:
       minimum-idle: 20
       idle-timeout: 600000
       max-lifetime: 1800000
-
-
   mybatis:
     mapper-locations: mappers/**/*.xml
     configuration:
@@ -32,6 +30,3 @@ spring:
         show_sql: true
     defer-datasource-initialization: true
     open-in-view: false
-
-jwt:
- secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
