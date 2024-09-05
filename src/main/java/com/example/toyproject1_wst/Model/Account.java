@@ -1,7 +1,10 @@
 package com.example.toyproject1_wst.Model;
 
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Account {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userCode;
@@ -19,8 +23,6 @@ public class Account {
     @Column(nullable = false)
     private String userName;
 
-    @Column(nullable = false)
-    private String password;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -29,5 +31,6 @@ public class Account {
     private LocalDateTime joinDate;
     private LocalDateTime updateDate;
     private String userStatus;
+
 
 }
