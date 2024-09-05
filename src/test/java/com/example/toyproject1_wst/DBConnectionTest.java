@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DBConnectionTest{
     private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -12,15 +15,22 @@ public class DBConnectionTest{
     private static final String PW = "gimpo123";
 
     @Test
-    public void testConnection() throws Exception{
-        Class.forName(DRIVER);
+    public void testConnection() {
+        try {
+            // JDBC 드라이버 로드
+            Class.forName(DRIVER);
 
-        try(Connection conn = DriverManager.getConnection(URL, USER, PW)){
-
-            System.out.println(conn); // 콘솔창에서 연결정보를 출력하여 확인한다.
-
-        } catch (Exception e) {
-            // TODO: handle exception
+            // 데이터베이스 연결
+            try (Connection conn = DriverManager.getConnection(URL, USER, PW)) {
+                assertNotNull(conn, "Connection should not be null");
+                System.out.println("Database connection successful: " + conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException("Database connection failed", e);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("JDBC Driver not found", e);
         }
     }
 }
