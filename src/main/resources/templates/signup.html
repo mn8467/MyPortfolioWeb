@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+</head>
+<body>
+<h2>회원가입</h2>
+<form id = 'signup'>   
+  <!-- User ID -->
+  <div>
+    <label for="userId">사용자 ID:</label>
+    <input type="text" id="userId" name="userId"   required>
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label for="email">이메일:</label>
+    <input type="email" id="email" name="email"   required>
+  </div>
+
+  <!-- User Name -->
+  <div>
+    <label for="userName">사용자 이름:</label>
+    <input type="text" id="userName" name="userName"  required>
+  </div>
+
+  <!-- Password -->
+  <div>
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+
+  <!-- Submit Button -->
+  <div>
+    <button id="submit" type="submit">회원가입</button>
+  </div>
+</form>
+
+<script>
+const addIndexEvent = () => {
+    const buttonEvent = document.getElementById("submit");
+    buttonEvent.addEventListener("click",submitServer)
+};
+
+const submitServer = async (event) =>{
+    event.preventDefault();
+    const COMMON_URL = 'http://localhost:8080';
+
+    const param = {
+        'userId' : document.getElementById('userId').value,
+        'userName' : document.getElementById('userName').value,
+        'email' : document.getElementById('email').value,
+        'password' : document.getElementById('password').value
+    };
+
+    const option = {
+        method : 'POST',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(param)
+    };
+
+    const res = await fetch(`${COMMON_URL}/accounts`, {
+        ...option
+    }) 
+    
+    console.log(res.json());
+      
+};
+
+addIndexEvent();
+</script>
+</body>
+</html>

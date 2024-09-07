@@ -1,5 +1,5 @@
 
-
+/*
 package com.example.toyproject1_wst.Config.SpringSecurity;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -34,8 +34,32 @@ public class SecurityConfig {
     }
 
     @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests((requests) -> requests
+                        // 권한 없이 접근 가능한 URL 경로 설정
+                        .requestMatchers("/accounts", "/home", "/sign-up").permitAll()
+                        // 그 외의 모든 요청은 인증 필요
+                        .anyRequest().authenticated()
+                )
+                // 로그인 폼 설정 (기본 제공 로그인 페이지 사용)
+                .formLogin((form) -> form
+                        .loginPage("/login")  // 커스텀 로그인 페이지 설정 가능
+                        .permitAll()
+                )
+                // 로그아웃 설정
+                .logout((logout) -> logout
+                        .permitAll()
+                );
+
+        return http.build();
+    }
+    @Bean
     @ConditionalOnMissingBean(AuthenticationEventPublisher.class)
     DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher(ApplicationEventPublisher delegate) {
         return new DefaultAuthenticationEventPublisher(delegate);
     }
 }
+
+
+ */

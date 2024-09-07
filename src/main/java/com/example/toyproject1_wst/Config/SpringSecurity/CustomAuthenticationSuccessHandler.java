@@ -1,4 +1,4 @@
-
+/*
 package com.example.toyproject1_wst.Config.SpringSecurity;
 
 import jakarta.servlet.ServletException;
@@ -18,4 +18,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 }
 
+
+ */
 
