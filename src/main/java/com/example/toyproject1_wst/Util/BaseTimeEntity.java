@@ -1,5 +1,6 @@
 package com.example.toyproject1_wst.Util;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -13,9 +14,10 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
+
     @CreatedDate // 3
-    private LocalDateTime localDateTime;
+    private LocalDateTime joinDate;
 
     @LastModifiedDate // 4
-    private LocalDateTime modifiedDate;
+    private LocalDateTime updateDate;
 }

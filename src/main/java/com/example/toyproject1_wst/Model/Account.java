@@ -1,6 +1,7 @@
 package com.example.toyproject1_wst.Model;
 
 
+import com.example.toyproject1_wst.Util.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -8,10 +9,11 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class Account  {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +32,18 @@ public class Account  {
     private String Password;
 
 
+
+
+    @Column(name = "user_Status", nullable = true)
+    private String userStatus;
+
+
+
     @Column(name = "join_date", nullable = true)
     private LocalDateTime joinDate;
 
     @Column(name = "update_date", nullable = true)
     private LocalDateTime updateDate;
-
-
-    @Column(name = "user_Status", nullable = true)
-    private String userStatus;
 
     //엔티티가 처음 만들어질 때 joinDate 시간 대입
     @PrePersist
@@ -51,5 +56,7 @@ public class Account  {
     public void onPreUpdate() {
         this.updateDate = LocalDateTime.now();
     }
+
+
 
 }
