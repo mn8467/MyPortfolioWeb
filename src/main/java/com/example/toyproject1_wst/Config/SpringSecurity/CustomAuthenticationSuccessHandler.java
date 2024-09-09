@@ -1,4 +1,4 @@
-/*
+
 package com.example.toyproject1_wst.Config.SpringSecurity;
 
 import jakarta.servlet.ServletException;
@@ -14,10 +14,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request,HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         // 인증 성공 후 리디렉션할 URL 설정
-        response.sendRedirect("/home"); // "/home"으로 리디렉션
+        response.sendRedirect("/"); // "/home"으로 리디렉션
     }
 }
 
 
- */
+
+
+
 

@@ -28,7 +28,7 @@ public class Account {
     @Column(name = "user_name" ,nullable = false)
     private String userName;
 
-    @Column(name = "Password" ,nullable = false)
+    @Column(name = "password" ,nullable = false)
     private String Password;
 
 

@@ -1,5 +1,5 @@
 
-/*
+
 package com.example.toyproject1_wst.Config.SpringSecurity;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -36,17 +38,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable()) //csrf 비활성화
                 .authorizeHttpRequests((requests) -> requests
                         // 권한 없이 접근 가능한 URL 경로 설정
-                        .requestMatchers("/accounts", "/home", "/sign-up").permitAll()
-                        // 그 외의 모든 요청은 인증 필요
-                        .anyRequest().authenticated()
+                        .requestMatchers("/accounts", "/", "/register").permitAll()
+                        //.anyRequest().authenticated() 그 외의 모든 요청은 인증 필요
                 )
                 // 로그인 폼 설정 (기본 제공 로그인 페이지 사용)
                 .formLogin((form) -> form
                         .loginPage("/login")  // 커스텀 로그인 페이지 설정 가능
                         .permitAll()
                 )
+
                 // 로그아웃 설정
                 .logout((logout) -> logout
                         .permitAll()
@@ -59,7 +62,13 @@ public class SecurityConfig {
     DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher(ApplicationEventPublisher delegate) {
         return new DefaultAuthenticationEventPublisher(delegate);
     }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
 
 
- */
+
+
