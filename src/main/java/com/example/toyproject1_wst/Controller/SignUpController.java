@@ -20,7 +20,7 @@ public class SignUpController {
     private AccountService accountService;
 
     @PostMapping("/accounts")
-    public  ResponseEntity<Map<String, String>> SignUpData(@RequestBody Account account) throws IOException {
+    public  ResponseEntity<Map<String, String>> SignUpData(@RequestBody Account account) {
      log.info("userId = "+ account.getUserId());
      log.info("userName = "+ account.getUserName());
      log.info("email = "+ account.getEmail());
