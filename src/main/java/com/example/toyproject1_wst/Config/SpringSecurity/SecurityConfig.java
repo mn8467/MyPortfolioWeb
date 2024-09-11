@@ -2,7 +2,9 @@
 
 package com.example.toyproject1_wst.Config.SpringSecurity;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,8 @@ import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
@@ -56,12 +61,15 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .maximumSessions(1)
                         .maxSessionsPreventsLogin(true) //동시 로그인 차단, false인 경우 기존 세션 만료(default)
+                        .sessionRegistry(sessionRegistry())    // 세션 레지스트리 설정
                 )
                 // 로그아웃 설정
                 .logout((logout) -> logout
-                        .logoutSuccessUrl("/") // 로그아웃 후 리디렉션 URL 설정
-                        .invalidateHttpSession(true) // 로그아웃 시 세션 무효화
-                        .permitAll() // 로그아웃 URL에 대한 접근을 모든 사용자에게 허용
+                        .logoutUrl("/logout")              // 로그아웃 URL
+                        .logoutSuccessUrl("/login")        // 로그아웃 후 리디렉션 URL
+                        .invalidateHttpSession(true)       // HTTP 세션 무효화
+                        .deleteCookies("remember-me")
+                        .deleteCookies("JSESSIONID")       // 삭제할 쿠키 설정 (기본적으로 "JSESSIONID" 사용)
                 );
 
         return http.build();
@@ -73,9 +81,21 @@ public class SecurityConfig {
     }
 
     @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+    @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
+    @Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
+    }
+
 }
 
 
