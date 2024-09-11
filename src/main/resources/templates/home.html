@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +21,15 @@
     </style>
 </head>
 <body>
+
 <button class="signup-button" onclick="redirectToSignup()">회원가입</button>
 <button class="myPage" onclick="moveMyPage()">마이 페이지</button>
+
+<p th:text="${sessionName}">User Name</p>
+<div th:if="${sessionName}" >
+    <button class="logout" onclick="logoutButton()">로그아웃</button>
+</div>
+
 
 <script>
     function redirectToSignup() {
@@ -31,6 +39,10 @@
 
     function moveMyPage(){
         window.location.href = '/myPage';
+    }
+
+    function logoutButton(){
+        window.location.href = '/logout';
     }
 </script>
 </body>

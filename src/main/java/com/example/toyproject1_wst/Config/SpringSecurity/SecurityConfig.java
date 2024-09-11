@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
@@ -38,6 +39,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .csrf(csrf -> csrf.disable()) //csrf 비활성화
                 .authorizeHttpRequests((requests) -> requests
                         // 권한 없이 접근 가능한 URL 경로 설정
@@ -50,9 +52,16 @@ public class SecurityConfig {
                         .permitAll()
                         .defaultSuccessUrl("/", true)
                 )
+                //최대 세션수 1개로 설정
+                .sessionManagement(session -> session
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(true) //동시 로그인 차단, false인 경우 기존 세션 만료(default)
+                )
                 // 로그아웃 설정
                 .logout((logout) -> logout
-                        .permitAll()
+                        .logoutSuccessUrl("/") // 로그아웃 후 리디렉션 URL 설정
+                        .invalidateHttpSession(true) // 로그아웃 시 세션 무효화
+                        .permitAll() // 로그아웃 URL에 대한 접근을 모든 사용자에게 허용
                 );
 
         return http.build();
