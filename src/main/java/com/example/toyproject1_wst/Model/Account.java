@@ -1,6 +1,7 @@
 package com.example.toyproject1_wst.Model;
 
 
+import com.example.toyproject1_wst.Util.AccountType;
 import com.example.toyproject1_wst.Util.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -31,13 +32,12 @@ public class Account {
     @Column(name = "password" ,nullable = false)
     private String Password;
 
-
-
-
     @Column(name = "user_Status", nullable = true)
     private String userStatus;
 
-
+    @Column(name = "authority" , nullable = false) //권한은 비면 안되지
+    @Enumerated(EnumType.STRING)
+    private AccountType authority;
 
     @Column(name = "join_date", nullable = true)
     private LocalDateTime joinDate;

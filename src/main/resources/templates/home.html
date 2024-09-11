@@ -21,11 +21,16 @@
 </head>
 <body>
 <button class="signup-button" onclick="redirectToSignup()">회원가입</button>
+<button class="myPage" onclick="moveMyPage()">마이 페이지</button>
 
 <script>
     function redirectToSignup() {
         // 회원가입 페이지 URL로 이동
         window.location.href = '/register';
+    }
+
+    function moveMyPage(){
+        window.location.href = '/myPage';
     }
 </script>
 </body>

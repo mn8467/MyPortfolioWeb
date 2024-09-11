@@ -41,15 +41,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) //csrf 비활성화
                 .authorizeHttpRequests((requests) -> requests
                         // 권한 없이 접근 가능한 URL 경로 설정
-                        .requestMatchers("/accounts", "/", "/register").permitAll()
-                        //.anyRequest().authenticated() 그 외의 모든 요청은 인증 필요
+                        .requestMatchers("/accounts", "/", "/register","/login").permitAll()
+                        .requestMatchers("/mypage").hasRole("ADMIN") // ADMIN 권한이 필요한 경로
+                        .anyRequest().authenticated()
                 )
                 // 로그인 폼 설정 (기본 제공 로그인 페이지 사용)
                 .formLogin((form) -> form
-                        .loginPage("/login")  // 커스텀 로그인 페이지 설정 가능
                         .permitAll()
+                        .defaultSuccessUrl("/", true)
                 )
-
                 // 로그아웃 설정
                 .logout((logout) -> logout
                         .permitAll()
