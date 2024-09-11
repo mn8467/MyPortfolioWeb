@@ -2,7 +2,6 @@
 
 package com.example.toyproject1_wst.Config.SpringSecurity;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.ApplicationEventPublisher;
@@ -22,7 +21,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
@@ -74,23 +72,29 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
+    //인증 관련 이벤트를 보다 세밀하게 관리하고, 애플리케이션의 다양한 요구 사항에 맞춰 이벤트 기반의 처리가 가능
     @Bean
     @ConditionalOnMissingBean(AuthenticationEventPublisher.class)
     DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher(ApplicationEventPublisher delegate) {
         return new DefaultAuthenticationEventPublisher(delegate);
     }
 
+    // sessionManagement 에서 sessionRegistry 사용하기 위해 작성됨
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
     }
+
+    // 패스워드 암호화
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
-
+    //세션 등록, 취소 서블릿에 등록하는 기능
     @Bean
     public static ServletListenerRegistrationBean httpSessionEventPublisher() {
         return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
