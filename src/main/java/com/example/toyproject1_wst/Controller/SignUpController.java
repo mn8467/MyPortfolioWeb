@@ -32,4 +32,19 @@ public class SignUpController {
         return ResponseEntity.ok(response);
     }
 
+
+    @PostMapping("/accounts/update")
+    public ResponseEntity<Map<String,String>> ModData(@RequestBody Account account){
+        log.info("userId = "+ account.getUserId());
+        log.info("userName = "+ account.getUserName());
+        log.info("email = "+ account.getEmail());
+        accountSignUpService.saveAccount(account);
+
+        // 리다이렉트 URL을 JSON으로 응답
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "회원정보 수정이 완료되었습니다.");
+        response.put("redirectUrl", "/");
+
+        return ResponseEntity.ok(response);
+    }
 }
