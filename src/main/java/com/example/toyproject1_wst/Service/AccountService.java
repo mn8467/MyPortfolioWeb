@@ -14,11 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class AccountSignUpService implements UserDetailsService {
+public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
@@ -45,6 +44,8 @@ public class AccountSignUpService implements UserDetailsService {
                 .authorities(new SimpleGrantedAuthority(account.getAuthority().getValue()))
                 .build();
     }
+
+
 
 
 }

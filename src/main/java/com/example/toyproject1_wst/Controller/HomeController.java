@@ -1,8 +1,6 @@
 package com.example.toyproject1_wst.Controller;
 
-import com.example.toyproject1_wst.Model.Account;
-import com.example.toyproject1_wst.Repository.AccountRepository;
-import com.example.toyproject1_wst.Service.AccountSignUpService;
+import com.example.toyproject1_wst.Service.AccountService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final  AccountSignUpService accountSignUpService;
+    private final AccountService accountService;
 
     @GetMapping("/")
     public String index(HttpSession session, Model model){

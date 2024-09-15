@@ -1,7 +1,7 @@
 package com.example.toyproject1_wst.Controller;
 
 import com.example.toyproject1_wst.Model.Account;
-import com.example.toyproject1_wst.Service.AccountSignUpService;
+import com.example.toyproject1_wst.Service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +15,14 @@ import java.util.Map;
 public class SignUpController {
 
     @Autowired
-    private AccountSignUpService accountSignUpService;
+    private AccountService accountService;
 
     @PostMapping("/accounts")
     public  ResponseEntity<Map<String, String>> SignUpData(@RequestBody Account account) {
      log.info("userId = "+ account.getUserId());
      log.info("userName = "+ account.getUserName());
      log.info("email = "+ account.getEmail());
-     accountSignUpService.saveAccount(account);
+     accountService.saveAccount(account);
 
         // 리다이렉트 URL을 JSON으로 응답
         Map<String, String> response = new HashMap<>();
@@ -38,7 +38,7 @@ public class SignUpController {
         log.info("userId = "+ account.getUserId());
         log.info("userName = "+ account.getUserName());
         log.info("email = "+ account.getEmail());
-        accountSignUpService.saveAccount(account);
+        accountService.saveAccount(account);
 
         // 리다이렉트 URL을 JSON으로 응답
         Map<String, String> response = new HashMap<>();
@@ -46,5 +46,10 @@ public class SignUpController {
         response.put("redirectUrl", "/");
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/accounts/update/{userCode}")
+    public ResponseEntity<Map<String,String>> GetData(@PathVariable int userCode){
+
     }
 }
