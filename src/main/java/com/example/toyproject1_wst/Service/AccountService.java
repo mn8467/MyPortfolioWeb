@@ -14,6 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @Service
@@ -45,7 +48,13 @@ public class AccountService implements UserDetailsService {
                 .build();
     }
 
+    public Optional<Account> findByUserId (String userId){
+        return accountRepository.findByUserId(userId);
+    }
 
-
+    public int findUserCodeByUserId(String userId) {
+        // 리포지토리 메서드를 호출하여 userCode를 조회합니다.
+        return accountRepository.findUserCodeByUserId(userId);
+    }
 
 }

@@ -57,6 +57,4 @@ public class Account {
         this.updateDate = LocalDateTime.now();
     }
 
-
-
 }

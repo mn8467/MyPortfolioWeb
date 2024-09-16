@@ -1,5 +1,6 @@
 package com.example.toyproject1_wst.Controller;
 
+import com.example.toyproject1_wst.Model.Account;
 import com.example.toyproject1_wst.Service.AccountService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class HomeController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        String username1 = authentication.getName();  // 세션에서 데이터 가져오기 현재 로그인된 사용자의 이름 (username)
+        String username1 = authentication.getName();  // 세션에서 데이터 가져오기 현재 로그인된 사용자의 아이디
 
         //Spring security는 기본적으로 anonymousUser 를 리턴해주기 때문에 th : if 조건문만으로는 거를 수 없기 때문에
         //anonymousUser 를 리턴하면 모델에 null 값을 넣어서 값을 없게 만들어 준다.
