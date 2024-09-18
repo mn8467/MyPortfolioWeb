@@ -42,19 +42,4 @@ public class AccountController {
     }
 
 
-    @PostMapping("/accounts/update/{userCode}")
-    public ResponseEntity<Map<String,String>> GetData(@PathVariable int userCode, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String getConnectedId = authentication.getName(); //Id검증 한번 해보고
-        userCode = accountService.findUserCodeByUserId(getConnectedId);
-
-        // 리다이렉트 URL을 JSON으로 응답
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "회원가입이 완료되었습니다.");
-        response.put("redirectUrl", "/");
-
-        return ResponseEntity.ok(response); //미완성
-
-    }
-
 }
