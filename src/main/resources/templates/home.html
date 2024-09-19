@@ -34,14 +34,15 @@
 
 
 <script>
-    const userCode = /*[[${userCode}]]*/ 0;
+    const userCode = /*[[${userCode}]]*/ "0"; // Thymeleaf에서 문자열로 변환됨
+
     function redirectToSignup() {
         // 회원가입 페이지 URL로 이동
         window.location.href = '/register';
     }
 
     function moveMyPage(){
-        window.location.href = '/myPage/${userCode}';
+        window.location.href = '/myPage/'+ userCode ;
     }
 
     function logoutButton(){

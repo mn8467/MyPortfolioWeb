@@ -25,7 +25,7 @@ public class MyPageController {  //회원만?
 
 
     @GetMapping("/myPage/{userCode}")
-    public String GetInfoData(@PathVariable int userCode, Model model) {
+    public String GetInfoData(@PathVariable String userCode, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String getConnectedId = authentication.getName(); // 로그인된 사용자의 ID를 가져옴
 
@@ -34,13 +34,10 @@ public class MyPageController {  //회원만?
 
         // userCode를 검증하여 맞는 사용자 정보만 제공하도록 변경
         int retrievedUserCode = accountService.findUserCodeByUserId(getConnectedId);
-        if (retrievedUserCode != userCode) {
-            throw new RuntimeException("Unauthorized access to user code");
-        }
+
 
         // Model에 데이터 추가
         model.addAttribute("userInfo", account); // 계정 정보
-        model.addAttribute("userCode", retrievedUserCode); // userCode를 String으로 추가
 
         // JSON 응답이 아닌 경우 response 맵 제거
 

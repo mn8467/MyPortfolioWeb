@@ -40,7 +40,7 @@ public class HomeController {
            int retrievedUserCode = accountService.findUserCodeByUserId(username);
 
             model.addAttribute("sessionName", username);
-            model.addAttribute("userCode", retrievedUserCode); // userCode를 String으로 추가
+            model.addAttribute("userCode", String.valueOf(retrievedUserCode)); // userCode를 String으로 추가
 
        } else {
             model.addAttribute("sessionName", null);  // 로그인되지 않은 경우 null로 설정

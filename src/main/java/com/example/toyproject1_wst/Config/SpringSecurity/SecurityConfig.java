@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         // 권한 없이 접근 가능한 URL 경로 설정
                         .requestMatchers("/accounts", "/", "/register","/login").permitAll()
-                        .requestMatchers("/mypage").hasRole("ADMIN") // ADMIN 권한이 필요한 경로
+                        .requestMatchers("/mypage/**").hasRole("ADMIN") // ADMIN 권한이 필요한 경로
                         .anyRequest().authenticated()
                 )
                 // 로그인 폼 설정 (기본 제공 로그인 페이지 사용)
