@@ -26,19 +26,22 @@
 <button class="myPage" onclick="moveMyPage()">마이 페이지</button>
 
 <p th:text="${sessionName}">User Name</p>
+<p th:text="${userCode}">User Code</p>
+
 <div th:if="${sessionName}" >
     <button class="logout" onclick="logoutButton()">로그아웃</button>
 </div>
 
 
 <script>
+    const userCode = /*[[${userCode}]]*/ 0;
     function redirectToSignup() {
         // 회원가입 페이지 URL로 이동
         window.location.href = '/register';
     }
 
     function moveMyPage(){
-        window.location.href = '/myPage';
+        window.location.href = '/myPage/${userCode}';
     }
 
     function logoutButton(){

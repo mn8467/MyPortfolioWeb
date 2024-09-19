@@ -36,8 +36,13 @@ public class HomeController {
         //anonymousUser 를 리턴하면 모델에 null 값을 넣어서 값을 없게 만들어 준다.
        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
             String username = authentication.getName();  // 세션에서 데이터 가져오기 현재 로그인된 사용자의 이름 (username)
+
+           int retrievedUserCode = accountService.findUserCodeByUserId(username);
+
             model.addAttribute("sessionName", username);
-        } else {
+            model.addAttribute("userCode", retrievedUserCode); // userCode를 String으로 추가
+
+       } else {
             model.addAttribute("sessionName", null);  // 로그인되지 않은 경우 null로 설정
         }
 
