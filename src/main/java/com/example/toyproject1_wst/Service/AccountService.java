@@ -31,10 +31,6 @@ public class AccountService implements UserDetailsService {
         return accountRepository.save(account);
     }
 
-    public Account updateAccount(Account account){
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        return accountRepository.save(account);
-    }
 
 
     @Override
@@ -60,7 +56,12 @@ public class AccountService implements UserDetailsService {
     public int findUserCodeByUserId(String userId) {
         // 리포지토리 메서드를 호출하여 userCode를 조회합니다.
         return accountRepository.findUserCodeByUserId(userId);
+
     }
+    public int updateAccount(Account account) {
+        // 비밀번호 인코딩
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
+       return accountRepository.updateAccount(account.getUserCode(), account.getUserName(), account.getPassword());
 
-
+    }
 }

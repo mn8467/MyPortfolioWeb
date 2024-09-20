@@ -10,19 +10,19 @@
   <!-- User ID -->
   <div>
     <label for="userId">사용자 ID:</label>
-    <input type="text" id="userId" name="userId" readonly required>
+    <input type="text" id="userId" th:value="${userInfo.userId}" name="userId" readonly required>
   </div>
 
   <!-- Email -->
   <div>
     <label for="email">이메일:</label>
-    <input type="email" id="email" name="email" readonly  required>
+    <input type="email" id="email" name="email" th:value="${userInfo.email}"   required>
   </div>
 
   <!-- User Name 수정가능 -->
   <div>
     <label for="userName">사용자 이름:</label>
-    <input type="text" id="userName" name="userName"  required>
+    <input type="text" id="userName" name="userName" th:value="${userInfo.userName}"  required>
   </div>
 
   <!-- Password -->
@@ -40,6 +40,8 @@
 </body>
 <script th:inline="javascript">
 
+  const userCode = [[${"userCode"}]]
+
   const addIndexEvent = () => {
     const buttonEvent = document.getElementById("submit");
     buttonEvent.addEventListener("click",submitServer)
@@ -54,11 +56,12 @@
       'userId' : document.getElementById('userId').value,
       'userName' : document.getElementById('userName').value,
       'email' : document.getElementById('email').value,
-      'password' : document.getElementById('password').value
+      'password' : document.getElementById('password').value,
+      'userCode' : userCode.value
     };
 
     const option = {
-      method : 'POST',
+      method : 'PUT',
       headers:{
         'Content-Type' : 'application/json'
       },
@@ -67,7 +70,9 @@
 
     try {
       const res = await fetch(`${COMMON_URL}/myPage/edit/data`, option);
-
+      if(res.ok){
+        console.log("데이터 전송 완료")
+      }
       if (!res.ok) {
         throw new Error('서버에서 오류가 발생했습니다.');
       }

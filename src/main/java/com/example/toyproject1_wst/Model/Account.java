@@ -30,7 +30,7 @@ public class Account {
     private String userName;
 
     @Column(name = "password" ,nullable = false)
-    private String Password;
+    private String password;
 
     @Column(name = "user_Status", nullable = true)
     private String userStatus;
@@ -56,5 +56,6 @@ public class Account {
     public void onPreUpdate() {
         this.updateDate = LocalDateTime.now();
     }
+
 
 }
