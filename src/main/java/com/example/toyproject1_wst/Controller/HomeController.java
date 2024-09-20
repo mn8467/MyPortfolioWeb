@@ -25,6 +25,11 @@ public class HomeController {
 
     private final AccountService accountService;
 
+    @GetMapping("/login/form")
+    public String loginForm(){
+        return "login";
+    }
+
     @GetMapping("/")
     public String index(HttpSession session, Model model){
 
@@ -55,23 +60,5 @@ public class HomeController {
         return "signup";
     }
 
-    @PostMapping("/accounts/update/{userCode}")
-    public String getData(@PathVariable int userCode, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String getConnectedId = authentication.getName(); // 로그인된 사용자의 ID를 가져옴
 
-        Optional<Account> accountOpt = accountService.findByUserId(getConnectedId);
-        Account account = accountOpt.orElseThrow(() -> new RuntimeException("Account not found"));
-
-        // userCode를 덮어쓰기 전에 의도적으로 사용 여부 확인
-        int retrievedUserCode = accountService.findUserCodeByUserId(getConnectedId);
-
-        // Model에 데이터 추가
-        model.addAttribute("userInfo", account); // 계정 정보
-        model.addAttribute("userCode", String.valueOf(retrievedUserCode)); // userCode를 String으로 추가
-
-        // JSON 응답이 아닌 경우 response 맵 제거
-
-        return "modify"; // modify 페이지로 리다이렉트
-     }
     }

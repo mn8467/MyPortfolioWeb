@@ -10,9 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -24,8 +22,8 @@ public class MyPageController {  //회원만?
     private final AccountService accountService;
 
 
-    @GetMapping("/myPage/{userCode}")
-    public String GetInfoData(@PathVariable String userCode, Model model) {
+    @GetMapping("/myPage/info")
+    public String GetInfoData(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String getConnectedId = authentication.getName(); // 로그인된 사용자의 ID를 가져옴
 
@@ -38,11 +36,14 @@ public class MyPageController {  //회원만?
 
         // Model에 데이터 추가
         model.addAttribute("userInfo", account); // 계정 정보
+        model.addAttribute("userCode", retrievedUserCode); // userCode를 String으로 추가
+
 
         // JSON 응답이 아닌 경우 response 맵 제거
 
         return "mypage"; // modify 페이지로 리다이렉트
     }
+
 
 
 

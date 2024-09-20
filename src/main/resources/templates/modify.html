@@ -6,11 +6,11 @@
 </head>
 <body>
 <h2>회원가입</h2>
-<form id = 'signup'>
+<form id = 'update' >
   <!-- User ID -->
   <div>
     <label for="userId">사용자 ID:</label>
-    <input type="text" id="userId" name="userId" th:value="${userInfo.userName}" required>
+    <input type="text" id="userId" name="userId" readonly required>
   </div>
 
   <!-- Email -->
@@ -19,10 +19,10 @@
     <input type="email" id="email" name="email" readonly  required>
   </div>
 
-  <!-- User Name -->
+  <!-- User Name 수정가능 -->
   <div>
     <label for="userName">사용자 이름:</label>
-    <input type="text" id="userName" name="userName" readonly  required>
+    <input type="text" id="userName" name="userName"  required>
   </div>
 
   <!-- Password -->
@@ -38,11 +38,13 @@
 </form>
 
 </body>
-<script>
+<script th:inline="javascript">
+
   const addIndexEvent = () => {
     const buttonEvent = document.getElementById("submit");
     buttonEvent.addEventListener("click",submitServer)
   };
+
 
   const submitServer = async (event) =>{
     event.preventDefault();
@@ -64,7 +66,7 @@
     };
 
     try {
-      const res = await fetch(`${COMMON_URL}/accounts`, option);
+      const res = await fetch(`${COMMON_URL}/myPage/edit/data`, option);
 
       if (!res.ok) {
         throw new Error('서버에서 오류가 발생했습니다.');

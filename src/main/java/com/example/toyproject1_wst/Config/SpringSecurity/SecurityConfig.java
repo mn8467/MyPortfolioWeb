@@ -47,11 +47,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         // 권한 없이 접근 가능한 URL 경로 설정
                         .requestMatchers("/accounts", "/", "/register","/login").permitAll()
-                        .requestMatchers("/mypage/**").hasRole("ADMIN") // ADMIN 권한이 필요한 경로
+                        .requestMatchers("/myPage/**").hasRole("ADMIN") // ADMIN 권한이 필요한 경로
                         .anyRequest().authenticated()
                 )
                 // 로그인 폼 설정 (기본 제공 로그인 페이지 사용)
                 .formLogin((form) -> form
+                        .loginPage("/login/form")
+                        .loginProcessingUrl("/login") // 폼 전송 시 처리될 URL
+                        .failureUrl("/login?error=true") // 로그인 실패 시 이동할 페이지
+                        .usernameParameter("username") // 사용자 ID 필드 이름 설정
+                        .passwordParameter("password") // 비밀번호 필드 이름 설정
                         .permitAll()
                         .defaultSuccessUrl("/", true)
                 )

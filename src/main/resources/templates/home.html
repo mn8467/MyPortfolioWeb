@@ -26,15 +26,15 @@
 <button class="myPage" onclick="moveMyPage()">마이 페이지</button>
 
 <p th:text="${sessionName}">User Name</p>
-<p th:text="${userCode}">User Code</p>
+<p th:text="${userCode}" >User Code</p>
 
 <div th:if="${sessionName}" >
     <button class="logout" onclick="logoutButton()">로그아웃</button>
 </div>
 
 
-<script>
-    const userCode = /*[[${userCode}]]*/ "0"; // Thymeleaf에서 문자열로 변환됨
+<script th:inline="javascript"> // thymeleaf 에서 받아온 변수를 javascirpt에 작성할 때 써준다
+
 
     function redirectToSignup() {
         // 회원가입 페이지 URL로 이동
@@ -42,7 +42,7 @@
     }
 
     function moveMyPage(){
-        window.location.href = '/myPage/'+ userCode ;
+        window.location.href = '/myPage/info';
     }
 
     function logoutButton(){
