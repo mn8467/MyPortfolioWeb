@@ -37,15 +37,18 @@
   </div>
 </form>
 
+<p id="userCode" th:text="${userInfo.userCode}" th:value="${userInfo.userCode}"></p>
+
 </body>
 <script th:inline="javascript">
 
-  const userCode = [[${"userCode"}]]
+  const userCode = parseInt(document.getElementById('userCode').value, 10);
 
   const addIndexEvent = () => {
     const buttonEvent = document.getElementById("submit");
     buttonEvent.addEventListener("click",submitServer)
   };
+
 
 
   const submitServer = async (event) =>{
@@ -57,7 +60,7 @@
       'userName' : document.getElementById('userName').value,
       'email' : document.getElementById('email').value,
       'password' : document.getElementById('password').value,
-      'userCode' : userCode.value
+      'userCode' : userCode
     };
 
     const option = {

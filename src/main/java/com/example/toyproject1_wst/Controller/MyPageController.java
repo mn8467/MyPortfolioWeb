@@ -71,12 +71,9 @@ public class MyPageController {  //회원만?
     @RequestMapping(value = "/myPage/edit/data",method = RequestMethod.PUT)
     @ResponseBody
     public Map<String, String> getUpdateData (@RequestBody Account account){
-        // 새로 받은 비밀번호 변경
-        String getUpdatePwd = account.getPassword();
-        account.setPassword(getUpdatePwd); // 새로운 비밀번호 가져오기
 
         accountService.updateAccount(account); // 비밀번호 엔코드 후 저장
-
+        log.info("userCode = " + account.getUserCode());
         log.info("userId = "+ account.getUserId());
         log.info("userName = "+ account.getUserName());
         log.info("email = "+ account.getEmail());

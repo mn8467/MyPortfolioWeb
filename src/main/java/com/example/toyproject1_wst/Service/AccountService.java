@@ -4,6 +4,7 @@ import com.example.toyproject1_wst.Model.Account;
 import com.example.toyproject1_wst.Repository.AccountRepository;
 import com.example.toyproject1_wst.Util.AccountType;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.Optional;
 
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class AccountService implements UserDetailsService {
@@ -59,8 +60,12 @@ public class AccountService implements UserDetailsService {
 
     }
     public int updateAccount(Account account) {
+        // 새로 받은 비밀번호 가져오기
+        String getUpdatePwd = account.getPassword();
+
         // 비밀번호 인코딩
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
+        account.setPassword(passwordEncoder.encode(getUpdatePwd));
+
        return accountRepository.updateAccount(account.getUserCode(), account.getUserName(), account.getPassword());
 
     }
