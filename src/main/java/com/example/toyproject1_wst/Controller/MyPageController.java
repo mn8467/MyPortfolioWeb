@@ -70,22 +70,21 @@ public class MyPageController {  //회원만?
 
     @RequestMapping(value = "/myPage/edit/data",method = RequestMethod.PUT)
     @ResponseBody
-    public Map<String, String> getUpdateData (@RequestBody Account account){
+    public Map<String, String> getUpdateData(@RequestBody Account account) {
 
         accountService.updateAccount(account); // 비밀번호 엔코드 후 저장
         log.info("userCode = " + account.getUserCode());
-        log.info("userId = "+ account.getUserId());
-        log.info("userName = "+ account.getUserName());
-        log.info("email = "+ account.getEmail());
+        log.info("userId = " + account.getUserId());
+        log.info("userName = " + account.getUserName());
+        log.info("email = " + account.getEmail());
 
-
+        // 응답에 리다이렉트 URL을 포함
         Map<String, String> resultMap = new HashMap<>();
         resultMap.put("result", "ok");
+        resultMap.put("redirectUrl", "/"); // 리다이렉트할 URL
 
         return resultMap;
-
     }
-
 
 
 

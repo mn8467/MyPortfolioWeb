@@ -73,6 +73,7 @@ const submitServer = async (event) =>{
         if (data.redirectUrl) {
             window.location.href = data.redirectUrl; // 리다이렉트 URL로 이동
             console.log(res)
+          alert('회원가입이 완료됐습니다!');
         }
     } catch (error) {
         console.error('Error:', error);

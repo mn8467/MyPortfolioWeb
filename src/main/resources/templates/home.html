@@ -14,6 +14,11 @@
             border-radius: 5px;
             cursor: pointer;
             text-align: center;
+            padding-left: 1rem; /* px-4의 경우 */
+            padding-right: 1rem;
+            padding-top: 0.5rem; /* py-2의 경우 */
+            padding-bottom: 0.5rem;
+
         }
         .signup-button:hover {
             background-color: #0056b3;
@@ -25,16 +30,25 @@
 <button class="signup-button" onclick="redirectToSignup()">회원가입</button>
 <button class="myPage" onclick="moveMyPage()">마이 페이지</button>
 
+
 <p th:text="${sessionName}">User Name</p>
 <p th:text="${userCode}" >User Code</p>
 
-<div th:if="${sessionName}" >
-    <button class="logout" onclick="logoutButton()">로그아웃</button>
-</div>
+    <div th:if="${sessionName}" >
+        <button class="signup-button" onclick="logoutButton()">로그아웃</button>
+    </div>
+    <div th:unless="${sessionName}">
+        <button class="signup-button" onclick="toLogin()">로그인</button>
+    </div>
+
 
 
 <script th:inline="javascript"> // thymeleaf 에서 받아온 변수를 javascirpt에 작성할 때 써준다
 
+function toLogin() {
+    // 회원가입 페이지 URL로 이동
+    window.location.href = '/login';
+}
 
     function redirectToSignup() {
         // 회원가입 페이지 URL로 이동
