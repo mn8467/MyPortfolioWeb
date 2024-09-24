@@ -1,7 +1,11 @@
 spring:
+  web:
+    resources:
+      static-locations: classpath:/resources/static
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+    mode: HTML5
   datasource:
     url: jdbc:mysql://13.125.104.251:3306/projectWST
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,3 +32,4 @@ spring:
     mapper-locations: mappers/**/*.xml
     configuration:
       map-underscore-to-camel-case: true
+
