@@ -3,6 +3,7 @@
 package com.example.toyproject1_wst.Config.SpringSecurity;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
@@ -37,6 +39,12 @@ public class SecurityConfig {
         String generatedPassword = "{noop}gimpo123"; // ...;
         return new InMemoryUserDetailsManager(User.withUsername("user")
                 .password(generatedPassword).roles("ADMIN").build());
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() { //정적 자원 관리 spring security 설정
+        return (web) -> web.ignoring()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Bean
