@@ -39,16 +39,20 @@
 
 <div class="container">
     <div class="flex-row" style="display: flex; align-items: center; gap: 10px;">
-        <div style="display: flex;">
-            <div class="row" th:if="${sessionName}">
+        <div style="display: flex; gap: 10px;  ">
+            <div class="flex"  th:if="${sessionName}">
                 <button class="signup-button" onclick="logoutButton()">로그아웃</button>
             </div>
-            <div class="row" th:unless="${sessionName}">
+            <div class="flex"  th:unless="${sessionName}">
                 <button class="signup-button" onclick="toLogin()">로그인</button>
             </div>
+            <div class="flex">
+                <button class="signup-button" onclick="redirectToSignup()">회원가입</button>
+            </div>
+            <div class="flex">
+                <button class="signup-button" onclick="moveMyPage()">마이 페이지</button>
+            </div>
         </div>
-        <button class="signup-button" onclick="redirectToSignup()">회원가입</button>
-        <button class="signup-button" onclick="moveMyPage()">마이 페이지</button>
     </div>
 </div>
 
