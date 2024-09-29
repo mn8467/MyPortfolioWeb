@@ -33,19 +33,24 @@
 </head>
 <body>
 
-<button class="signup-button" onclick="redirectToSignup()">회원가입</button>
-<button class="signup-button" onclick="moveMyPage()">마이 페이지</button>
-
 
 <p th:text="${sessionName}">User Name</p>
 <p th:text="${userCode}" >User Code</p>
 
-    <div th:if="${sessionName}" >
-        <button class="signup-button" onclick="logoutButton()">로그아웃</button>
+<div class="container">
+    <div class="flex-row" style="display: flex; align-items: center; gap: 10px;">
+        <div style="display: flex;">
+            <div class="row" th:if="${sessionName}">
+                <button class="signup-button" onclick="logoutButton()">로그아웃</button>
+            </div>
+            <div class="row" th:unless="${sessionName}">
+                <button class="signup-button" onclick="toLogin()">로그인</button>
+            </div>
+        </div>
+        <button class="signup-button" onclick="redirectToSignup()">회원가입</button>
+        <button class="signup-button" onclick="moveMyPage()">마이 페이지</button>
     </div>
-    <div th:unless="${sessionName}">
-        <button class="signup-button" onclick="toLogin()">로그인</button>
-    </div>
+</div>
 
 
     <div class="page-container">
