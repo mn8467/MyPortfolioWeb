@@ -26,9 +26,6 @@ spring:
       hibernate:
         format_sql: true # SQL 쿼리를 포맷하여 출력
     defer-datasource-initialization: true # 데이터베이스 초기화 지연
-  redis:
-    host:localhost
-    port:6379
   mybatis:
     mapper-locations: mappers/**/*.xml
     configuration:
