@@ -9,7 +9,7 @@ spring:
     url: jdbc:mysql://13.125.104.251:3306/projectWST
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 
+    password:
     hikari:
       maximum-pool-size: 500
       connection-timeout: 5000
